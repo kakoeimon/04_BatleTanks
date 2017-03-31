@@ -59,10 +59,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) const
 			)
 		)
 	{
-		
 		FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
+
 
 }
 
@@ -72,8 +72,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) const
 	FRotator AimAsRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimAsRotator - BarrelRotator;
 
-	UE_LOG(LogTemp, Warning, TEXT("Before Elevate called"))
-	Barrel->Elevate(5);
+	Barrel->Elevate(DeltaRotator.Pitch);
 
 }
 
