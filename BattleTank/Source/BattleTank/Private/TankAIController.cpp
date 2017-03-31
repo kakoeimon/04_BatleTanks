@@ -6,6 +6,7 @@
 
 void ATankAIController::BeginPlay()
 {
+	Super::BeginPlay();
 	ATank* PlayerTank = GetPlayerTank();
 
 	if (PlayerTank != nullptr)
@@ -18,6 +19,18 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("No Player TANK"))
 	}
 
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	ATank* PlayerTank = GetPlayerTank();
+	if (GetPlayerTank())
+	{
+		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+	}
+	
 }
 
 ATank* ATankAIController::GetControlledTank() const
