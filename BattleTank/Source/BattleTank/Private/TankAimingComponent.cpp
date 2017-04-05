@@ -14,18 +14,16 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	
 }
 
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
+void UTankAimingComponent::Initialise(UTankBarrel* TankBarrelToSet, UTankTurret* TankTurretToSet)
 {
-	Barrel = BarrelToSet;
+	Barrel = TankBarrelToSet;
+	Turret = TankTurretToSet;
 }
 
-void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
-{
-	Turret = TurretToSet;
-}
 
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
@@ -47,7 +45,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) const
 {
-	if (!Barrel) { return; }
+	if (!ensure(Barrel)) { return; }
 	
 
 	FVector OutLaunchVelocity;
